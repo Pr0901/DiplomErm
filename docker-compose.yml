@@ -1,23 +1,23 @@
 version: '3.7'
 services:
-  postgres:
-    image: postgres:13-alpine
+  mysqldb:
+    image: mysql:8.0.31
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=app
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=pass
+  postgresdb:
+    image: postgres:14-alpine
     ports:
       - '5432:5432'
-#    volumes:
-#      - ./data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=app
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=pass
-  mysql:
-    image: mysql:latest
-    restart: always
+  node-app:
+    build: ./gate-simulator
     ports:
-      - '3306:3306'
-#    volumes:
-#      - ./schema:/docker-entrypoint-initdb.d
-    environment:
-      - MYSQL_DATABASE=app
-      - MYSQL_USER=app
-      - MYSQL_PASSWORD=pass
+      - '9999:9999'
