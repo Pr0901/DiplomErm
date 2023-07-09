@@ -1,16 +1,23 @@
 package data;
 
-import lombok.Value;
+import lombok.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.github.javafaker.Faker;
 
+
+
 import java.util.Locale;
 import java.util.Random;
 
 public class DataHelper {
+
+
 
     private DataHelper() {
     }
@@ -115,9 +122,12 @@ public class DataHelper {
 
     public static String getThreeDigits(String locale) {
         var faker = new Faker(new Locale(locale));
-        return faker.numerify("###");
+        return faker.numerify("#2#");
     };
 
+    public static String getZero() {
+        return ("0000000000000000");
+    };
 
 
 }

@@ -2,7 +2,11 @@ package test;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import data.DataHelper;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,15 +27,30 @@ public class BuyInCreditTest {
     private SelenideElement disapprovalNotification = $x("//div[contains(@class, 'notification notification_visible notification_status_error ')]");
     private SelenideElement wrongFormatNotification = $x("//span[contains(text(), 'Неверный формат')]");
     private SelenideElement notFilledNotification = $x("//span[contains(text(), 'Поле обязательно для заполнения')]");
-    private SelenideElement expiredNotification = $x("//span[contains(text(), 'Срок действия карты истек')]");
+    private SelenideElement expiredNotification = $x("//span[contains(text(), 'Истёк срок действия карты')]");
     private SelenideElement overLimitNotification = $x("//span[contains(text(), 'Поле не может содержать более 50 символов')]");
     private SelenideElement noLastNameNotification = $x("//span[contains(text(), 'Укажите фамилию')]");
+    private SelenideElement incorrectDateNotification = $x("//span[contains(text(), 'Неверно указан срок действия карты')]");
+
+
 
     @BeforeEach
     void setUp() {
         open("http://localhost:8080");
         buyInCreditButton.click();
     }
+
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
+
 
     @Test
     void validBuyInCredit() {
@@ -153,6 +172,28 @@ public class BuyInCreditTest {
     }
 
     @Test
+    void creditZeroCardNumber() {
+        cardNumberField.setValue(DataHelper.getZero());
+        monthField.setValue(DataHelper.getRightMonth("en"));
+        yearField.setValue(DataHelper.getYear(3));
+        ownerField.setValue(DataHelper.getOwner("en"));
+        cvvField.setValue(DataHelper.getCode("en"));
+        continueButton.click();
+        disapprovalNotification.shouldBe(Condition.visible, Duration.ofSeconds(15));
+    }
+
+    @Test
+    void creditZeroMonth() {
+        cardNumberField.setValue(DataHelper.getApprovedCard());
+        monthField.setValue(DataHelper.getZero());
+        yearField.setValue(DataHelper.getYear(3));
+        ownerField.setValue(DataHelper.getOwner("en"));
+        cvvField.setValue(DataHelper.getCode("en"));
+        continueButton.click();
+        wrongFormatNotification.shouldBe(Condition.visible);
+    }
+
+    @Test
     void creditNonexistentMonth() {
         cardNumberField.setValue(DataHelper.getApprovedCard());
         monthField.setValue(DataHelper.getWrongMonth("en"));
@@ -160,7 +201,7 @@ public class BuyInCreditTest {
         ownerField.setValue(DataHelper.getOwner("en"));
         cvvField.setValue(DataHelper.getCode("en"));
         continueButton.click();
-        wrongFormatNotification.shouldBe(Condition.visible);
+        incorrectDateNotification.shouldBe(Condition.visible);
     }
 
     @Test
@@ -182,7 +223,7 @@ public class BuyInCreditTest {
         ownerField.setValue(DataHelper.getOwner("en"));
         cvvField.setValue(DataHelper.getCode("en"));
         continueButton.click();
-        wrongFormatNotification.shouldBe(Condition.visible);
+        incorrectDateNotification.shouldBe(Condition.visible);
     }
 
     @Test
@@ -218,6 +259,17 @@ public class BuyInCreditTest {
     }
 
     @Test
+    void creditZeroYear() {
+        cardNumberField.setValue(DataHelper.getApprovedCard());
+        monthField.setValue(DataHelper.getRightMonth("en"));
+        yearField.setValue(DataHelper.getZero());
+        ownerField.setValue(DataHelper.getOwner("en"));
+        cvvField.setValue(DataHelper.getCode("en"));
+        continueButton.click();
+        expiredNotification.shouldBe(Condition.visible);
+    }
+
+    @Test
     void creditLastYear() {
         cardNumberField.setValue(DataHelper.getApprovedCard());
         monthField.setValue(DataHelper.getRightMonth("en"));
@@ -232,11 +284,11 @@ public class BuyInCreditTest {
     void creditFarYear() {
         cardNumberField.setValue(DataHelper.getApprovedCard());
         monthField.setValue(DataHelper.getRightMonth("en"));
-        yearField.setValue(DataHelper.getYear(+6));
+        yearField.setValue(DataHelper.getYear(6));
         ownerField.setValue(DataHelper.getOwner("en"));
         cvvField.setValue(DataHelper.getCode("en"));
         continueButton.click();
-        wrongFormatNotification.shouldBe(Condition.visible);
+        incorrectDateNotification.shouldBe(Condition.visible);
     }
 
     @Test
@@ -258,7 +310,7 @@ public class BuyInCreditTest {
         ownerField.setValue(DataHelper.getOwner("en"));
         cvvField.setValue(DataHelper.getCode("en"));
         continueButton.click();
-        disapprovalNotification.shouldBe(Condition.visible, Duration.ofSeconds(15));
+        incorrectDateNotification.shouldBe(Condition.visible);
     }
 
     @Test

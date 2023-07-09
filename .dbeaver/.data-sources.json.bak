@@ -29,21 +29,7 @@
 				"configurationType": "MANUAL",
 				"home": "postgresql_client",
 				"type": "dev",
-				"auth-model": "native"
-			}
-		},
-		"mysql8-189399ae781-6d3c6dabad83ccaa": {
-			"provider": "mysql-ee",
-			"driver": "mysql8",
-			"name": "localhost 2",
-			"save-password": true,
-			"configuration": {
-				"host": "localhost",
-				"port": "3306",
-				"url": "jdbc:mysql://localhost:3306/",
-				"configurationType": "MANUAL",
-				"home": "mysql_client",
-				"type": "dev",
+				"provider-properties": {},
 				"auth-model": "native"
 			}
 		}
