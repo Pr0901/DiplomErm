@@ -1,1 +1,0 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/38opycpft00x9e2y/branch/main?svg=true)](https://ci.appveyor.com/project/Pr0901/diplomerm/branch/main)
