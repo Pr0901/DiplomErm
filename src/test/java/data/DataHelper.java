@@ -31,6 +31,11 @@ public class DataHelper {
         String cvc;
     }
 
+    @Value
+    public static class AmountSum {
+        String amount;
+    }
+
     public static String getApprovedCard() {
         return "4444 4444 4444 4441";
     }
@@ -122,7 +127,7 @@ public class DataHelper {
 
     public static String getThreeDigits(String locale) {
         var faker = new Faker(new Locale(locale));
-        return faker.numerify("#2#");
+        return faker.numerify("4##");
     };
 
     public static String getZero() {
