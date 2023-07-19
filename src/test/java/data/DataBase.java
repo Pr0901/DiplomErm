@@ -6,7 +6,6 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class DataBase {
 
@@ -21,26 +20,37 @@ public class DataBase {
     }
 
     @SneakyThrows
-    public static String getAmount() {
+    public static String getAmountForPayment() {
         var connection = getConn();
-        var amount = runner.execute(connection, "SELECT amount FROM app.payment_entity ORDER BY created DESC LIMIT 1");
+        var amount = runner.execute(connection, "SELECT amount FROM payment_entity ORDER BY created DESC LIMIT 1", new ScalarHandler<String>());
         return String.valueOf(amount);
-//        runner.execute(connection, "DELETE FROM card_transactions");
-//        runner.execute(connection, "DELETE FROM cards");
-//        runner.execute(connection, "DELETE FROM users");
     }
 
-//    public static DataHelper.AmountSum getInfo() {
-//        var codeSQL = "SELECT amount, status, created FROM app.payment_entity ORDER BY created DESC LIMIT 1";
-//        try (var conn = getConn()) {
-//            var amount = runner.query(conn, codeSQL, new ScalarHandler<String>());
-//            return new DataHelper.AmountSum(amount);
-//        } catch (SQLException exception) {
-//            exception.printStackTrace();
-//        }
-//        return null;
-//    }
+    @SneakyThrows
+    public static String getStatusForPayment() {
+        var connection = getConn();
+        var status = runner.execute(connection, "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1", new ScalarHandler<String>());
+        return String.valueOf(status);
+    }
 
+    @SneakyThrows
+    public static String getRowsNumberForPayment() {
+        var connection = getConn();
+        var number = runner.execute(connection, "SELECT COUNT(*) FROM payment_entity", new ScalarHandler<String>());
+        return String.valueOf(number);
+    }
 
+    @SneakyThrows
+    public static String getStatusForCredit() {
+        var connection = getConn();
+        var status = runner.execute(connection, "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1", new ScalarHandler<String>());
+        return String.valueOf(status);
+    }
 
+    @SneakyThrows
+    public static String getRowsNumberForCredit() {
+        var connection = getConn();
+        var number = runner.execute(connection, "SELECT COUNT(*) FROM credit_request_entity", new ScalarHandler<String>());
+        return String.valueOf(number);
+    }
 }

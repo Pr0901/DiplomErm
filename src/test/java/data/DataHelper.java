@@ -2,21 +2,15 @@ package data;
 
 import lombok.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.github.javafaker.Faker;
 
-
-
 import java.util.Locale;
-import java.util.Random;
+
 
 public class DataHelper {
-
 
 
     private DataHelper() {
@@ -58,12 +52,16 @@ public class DataHelper {
         var faker = new Faker(new Locale(locale));
         var plusMonth = faker.numerify("#");
         return LocalDate.now().plusMonths(Long.parseLong(plusMonth)).format(DateTimeFormatter.ofPattern("MM"));
-    };
+    }
+
+    ;
 
     public static String getWrongMonth(String locale) {
         var faker = new Faker(new Locale(locale));
         return faker.numerify("2#");
-    };
+    }
+
+    ;
 
 
     public static String getYear(int shift) {
@@ -77,7 +75,7 @@ public class DataHelper {
 
     public static String getOwnerWithApostrophe(String locale) {
         var faker = new Faker(new Locale(locale));
-        return  faker.name().firstName() + " " + faker.letterify("?") + "'" + faker.name().lastName();
+        return faker.name().firstName() + " " + faker.letterify("?") + "'" + faker.name().lastName();
     }
 
     public static String getOwnerWithHyphen(String locale) {
@@ -114,25 +112,39 @@ public class DataHelper {
     public static String getLetters(String locale) {
         var faker = new Faker(new Locale(locale));
         return faker.letterify("?");
-    };
+    }
+
+    ;
 
     public static String getDigit(String locale) {
         var faker = new Faker(new Locale(locale));
         return faker.numerify("#");
-    };
+    }
+
+    ;
 
     public static String getSymbols() {
-       return "+*";
-    };
+        return "+*";
+    }
+
+    ;
 
     public static String getThreeDigits(String locale) {
         var faker = new Faker(new Locale(locale));
         return faker.numerify("4##");
-    };
+    }
+
+    ;
 
     public static String getZero() {
         return ("0000000000000000");
-    };
+    }
+
+    ;
+
+    public static String getSum() {
+        return "45 000";
+    }
 
 
 }

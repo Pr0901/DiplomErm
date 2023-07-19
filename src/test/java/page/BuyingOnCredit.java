@@ -30,8 +30,7 @@ public class BuyingOnCredit {
     private SelenideElement incorrectDateNotification = $x("//span[contains(text(), 'Неверно указан срок действия карты')]");
 
 
-
-    public BuyingOnCredit(){
+    public BuyingOnCredit() {
         buyInCreditButton.click();
     }
 
