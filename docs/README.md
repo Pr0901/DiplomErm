@@ -14,6 +14,11 @@
 4. Открыть новую вкладку в терминале и запустить jar командой **java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifacts/aqa-shop.jar**;
 5. Открыть новую вкладку в терминале и запустить автотесты **./gradlew clean test "-Ddb.url=jdbc:postgresql://localhost:5432/app"**.
 
+## Шаги для получения отчета ALLURE:
+
+1. Запустить автотесты по указанной выше инструкции, дождаться их окончания;
+2. В IntelijIDEA в терминале набрать **./gradlew allureserve**.
+
 ## Отчеты:
 - [Plan.md](https://github.com/Pr0901/DiplomErm/blob/main/docs/Plan.md)
 - [Report.md](https://github.com/Pr0901/DiplomErm/blob/main/docs/Report.md)
