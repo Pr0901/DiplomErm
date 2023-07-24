@@ -34,23 +34,9 @@ public class DataBase {
     }
 
     @SneakyThrows
-    public static String getRowsNumberForPayment() {
-        var connection = getConn();
-        var number = runner.execute(connection, "SELECT COUNT(*) FROM payment_entity", new ScalarHandler<String>());
-        return String.valueOf(number);
-    }
-
-    @SneakyThrows
     public static String getStatusForCredit() {
         var connection = getConn();
         var status = runner.execute(connection, "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1", new ScalarHandler<String>());
         return String.valueOf(status);
-    }
-
-    @SneakyThrows
-    public static String getRowsNumberForCredit() {
-        var connection = getConn();
-        var number = runner.execute(connection, "SELECT COUNT(*) FROM credit_request_entity", new ScalarHandler<String>());
-        return String.valueOf(number);
     }
 }

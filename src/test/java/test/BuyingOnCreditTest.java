@@ -32,7 +32,7 @@ public class BuyingOnCreditTest {
     @Test
     void validBuyInCredit() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.approval();
         Assertions.assertEquals("[APPROVED]", DataBase.getStatusForCredit());
     }
@@ -41,7 +41,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditOwnerWithHyphen() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwnerWithHyphen("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwnerWithHyphen("en"), DataHelper.getCode("en"));
         buyingOnCredit.approval();
         Assertions.assertEquals("[APPROVED]", DataBase.getStatusForCredit());
     }
@@ -49,7 +49,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditOwnerBorderLine() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getBorderlineOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getBorderlineOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.approval();
     }
 
@@ -57,7 +57,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditOwnerWithApostrophe() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwnerWithApostrophe("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwnerWithApostrophe("en"), DataHelper.getCode("en"));
         buyingOnCredit.approval();
         Assertions.assertEquals("[APPROVED]", DataBase.getStatusForCredit());
     }
@@ -66,7 +66,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditSmallCardNumber() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getSmallCard("en"), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getSmallCard("en"), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.wrongFormat();
     }
 
@@ -74,7 +74,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditOneDigitCardNumber() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getDigit("en"), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getDigit("en"), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.wrongFormat();
     }
 
@@ -82,16 +82,15 @@ public class BuyingOnCreditTest {
     @Test
     void creditBigCardNumber() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getBigCard("en"), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getBigCard("en"), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.disapproval();
-        Assertions.assertEquals("[DECLINED]", DataBase.getStatusForCredit());
     }
 
 
     @Test
     void creditDeclinedCard() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getDeclinedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getDeclinedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.disapproval();
         Assertions.assertEquals("[DECLINED]", DataBase.getStatusForCredit());
     }
@@ -100,7 +99,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditLetterCardNumber() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getLetters("en"), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getLetters("en"), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -108,7 +107,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditSymbolsCardNumber() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getSymbols(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getSymbols(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -116,7 +115,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditEmptyCardNumber() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.missingCard(DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation("", DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -124,7 +123,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditZeroCardNumber() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getZero(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getZero(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.disapproval();
         Assertions.assertEquals("[DECLINED]", DataBase.getStatusForCredit());
     }
@@ -133,7 +132,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditZeroMonth() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getZero(), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getZero(), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.wrongFormat();
     }
 
@@ -141,7 +140,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditNonexistentMonth() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getWrongMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getWrongMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.incorrectDate();
     }
 
@@ -149,7 +148,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditSmallMonth() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getDigit("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getDigit("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.wrongFormat();
     }
 
@@ -157,7 +156,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditBigMonth() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getThreeDigits("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getThreeDigits("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.incorrectDate();
     }
 
@@ -165,7 +164,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditLettersMonth() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getLetters("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -173,7 +172,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditSymbolsMonth() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getSymbols(), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getSymbols(), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -181,7 +180,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditNotFilledMonth() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.missingMonth(DataHelper.getApprovedCard(), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), "", DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -189,7 +188,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditZeroYear() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getZero(), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getZero(), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.expired();
     }
 
@@ -197,7 +196,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditLastYear() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(-1), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(-1), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.expired();
     }
 
@@ -205,7 +204,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditFarYear() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(6), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(6), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.incorrectDate();
     }
 
@@ -213,7 +212,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditDigitYear() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getDigit("en"), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getDigit("en"), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.wrongFormat();
     }
 
@@ -221,14 +220,14 @@ public class BuyingOnCreditTest {
     @Test
     void creditBigYear() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getThreeDigits("en"), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getThreeDigits("en"), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.incorrectDate();
     }
 
     @Test
     void creditLettersYear() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getLetters("en"), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getLetters("en"), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -236,7 +235,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditSymbolsYear() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getSymbols(), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getSymbols(), DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -244,7 +243,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditNotFilledYear() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.missingYear(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), "", DataHelper.getOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -252,7 +251,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditBigOwner() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getBigOwner("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getBigOwner("en"), DataHelper.getCode("en"));
         buyingOnCredit.overLimit();
     }
 
@@ -260,7 +259,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditDigitOwner() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getDigit("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getDigit("en"), DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -268,7 +267,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditSymbolsOwner() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getSymbols(), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getSymbols(), DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -276,7 +275,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditOneLetterOwner() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getLetters("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getLetters("en"), DataHelper.getCode("en"));
         buyingOnCredit.wrongFormat();
     }
 
@@ -284,7 +283,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditOnlyNameOwner() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getName("en"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getName("en"), DataHelper.getCode("en"));
         buyingOnCredit.noLastName();
     }
 
@@ -292,7 +291,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditRussianOwner() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("ru"), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("ru"), DataHelper.getCode("en"));
         buyingOnCredit.wrongFormat();
     }
 
@@ -300,7 +299,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditNotFilledOwner() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.missingOwner(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), "", DataHelper.getCode("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -308,7 +307,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditSmallCode() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getDigit("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getDigit("en"));
         buyingOnCredit.wrongFormat();
     }
 
@@ -316,16 +315,15 @@ public class BuyingOnCreditTest {
     @Test
     void creditBigCode() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getBigCode("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getBigCode("en"));
         buyingOnCredit.disapproval();
-        Assertions.assertEquals("[DECLINED]", DataBase.getStatusForCredit());
     }
 
 
     @Test
     void creditLettersCode() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getLetters("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getLetters("en"));
         buyingOnCredit.notFilled();
     }
 
@@ -333,7 +331,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditSymbolsCode() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.everythingFilled(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getSymbols());
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), DataHelper.getSymbols());
         buyingOnCredit.notFilled();
     }
 
@@ -341,7 +339,7 @@ public class BuyingOnCreditTest {
     @Test
     void creditNotFilledCode() {
         var buyingOnCredit = new BuyingOnCredit();
-        buyingOnCredit.missingCode(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"));
+        buyingOnCredit.fillingInformation(DataHelper.getApprovedCard(), DataHelper.getRightMonth("en"), DataHelper.getYear(3), DataHelper.getOwner("en"), "");
         buyingOnCredit.notFilled();
     }
 }

@@ -54,14 +54,10 @@ public class DataHelper {
         return LocalDate.now().plusMonths(Long.parseLong(plusMonth)).format(DateTimeFormatter.ofPattern("MM"));
     }
 
-    ;
-
     public static String getWrongMonth(String locale) {
         var faker = new Faker(new Locale(locale));
         return faker.numerify("2#");
     }
-
-    ;
 
 
     public static String getYear(int shift) {
@@ -114,37 +110,25 @@ public class DataHelper {
         return faker.letterify("?");
     }
 
-    ;
-
     public static String getDigit(String locale) {
         var faker = new Faker(new Locale(locale));
         return faker.numerify("#");
     }
 
-    ;
-
     public static String getSymbols() {
         return "+*";
     }
-
-    ;
 
     public static String getThreeDigits(String locale) {
         var faker = new Faker(new Locale(locale));
         return faker.numerify("4##");
     }
 
-    ;
-
     public static String getZero() {
         return ("0000000000000000");
     }
 
-    ;
-
     public static String getSum() {
         return "45 000";
     }
-
-
 }
